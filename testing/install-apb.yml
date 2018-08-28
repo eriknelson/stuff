@@ -35,5 +35,5 @@ spec:
   containers:
     - name: apb
       image: 'brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/automation-broker-apb:v3.11.0'
-      args: [ "provision", "--extra-vars", '{ "broker_kind": "ServiceBroker", "broker_namespace": "franks-sandbox", "create_broker_namespace": true }' ]
+      args: [ "provision", "--extra-vars", '{ "broker_kind": "ServiceBroker", "broker_namespace": "test-ns-broker", "create_broker_namespace": true }' ]
       imagePullPolicy: IfNotPresent

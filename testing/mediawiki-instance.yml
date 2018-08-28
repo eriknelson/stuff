@@ -2,7 +2,7 @@ apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceInstance
 metadata:
   name: mediawiki
-  namespace: franks-sandbox
+  namespace: test-ns-broker
 spec:
   serviceClassExternalName: dh-mediawiki-apb
   servicePlanExternalName: default
