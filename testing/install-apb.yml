@@ -1,0 +1,39 @@
+# install.yml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: automation-broker-apb
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: automation-broker-apb
+  namespace: automation-broker-apb
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: automation-broker-apb
+roleRef:
+  name: cluster-admin
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: automation-broker-apb
+  namespace: automation-broker-apb
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: automation-broker-apb
+  namespace: automation-broker-apb
+spec:
+  serviceAccount: automation-broker-apb
+  restartPolicy: Never
+  containers:
+    - name: apb
+      image: 'brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/automation-broker-apb:v3.11.0'
+      args: [ "provision", "--extra-vars", '{ "broker_kind": "ServiceBroker", "broker_namespace": "franks-sandbox", "create_broker_namespace": true }' ]
+      imagePullPolicy: IfNotPresent
