@@ -27,13 +27,13 @@ subjects:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: automation-broker-apb
+  generateName: automation-broker-apb
   namespace: automation-broker-apb
 spec:
   serviceAccount: automation-broker-apb
   restartPolicy: Never
   containers:
     - name: apb
-      image: 'brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/automation-broker-apb:v3.11.0'
-      args: [ "provision", "--extra-vars", '{ "broker_kind": "ServiceBroker", "broker_namespace": "test-ns-broker", "create_broker_namespace": true }' ]
+      image: 'automationbroker/automation-broker-apb:depro'
+      args: [ "provision", "--extra-vars", '{ "broker_image": "docker.io/ansibleplaybookbundle/origin-ansible-service-broker", "broker_kind": "ServiceBroker", "broker_namespace": "test-ns-broker", "create_broker_namespace": true }' ]
       imagePullPolicy: IfNotPresent
