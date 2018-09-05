@@ -1,4 +1,4 @@
-# install.yml
+# uninstall.yml
 ---
 apiVersion: v1
 kind: Namespace
@@ -35,5 +35,5 @@ spec:
   containers:
     - name: apb
       image: 'automationbroker/automation-broker-apb:depro'
-      args: [ "provision", "--extra-vars", '{ "broker_image": "docker.io/ansibleplaybookbundle/origin-ansible-service-broker", "broker_namespace": "eriks-cluster-broker", "create_broker_namespace": true }' ]
+      args: [ "deprovision", "--extra-vars", '{ "broker_image": "docker.io/ansibleplaybookbundle/origin-ansible-service-broker", "create_broker_namespace": true, "broker_force_deprovision": true }' ]
       imagePullPolicy: IfNotPresent

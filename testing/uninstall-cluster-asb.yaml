@@ -35,5 +35,5 @@ spec:
   containers:
     - name: apb
       image: 'automationbroker/automation-broker-apb:depro'
-      args: [ "deprovision", "--extra-vars", '{ "broker_image": "docker.io/ansibleplaybookbundle/origin-ansible-service-broker", "create_broker_namespace": true }' ]
+      args: [ "deprovision", "--extra-vars", '{ "broker_image": "docker.io/ansibleplaybookbundle/origin-ansible-service-broker", "broker_namespace": "eriks-cluster-broker", "create_broker_namespace": true }' ]
       imagePullPolicy: IfNotPresent

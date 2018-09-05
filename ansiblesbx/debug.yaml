@@ -1,0 +1,5 @@
+- hosts: localhost
+  tasks:
+    - debug:
+        msg: "{{ lookup('k8s', kind='BundleInstance', namespace='automation-broker', api_version='automationbroker.io/v1alpha1') | length }}"
+        #msg: "{{ lookup('k8s', cluster_info='api_groups') }}"
