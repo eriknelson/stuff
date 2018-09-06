@@ -1,5 +1,12 @@
 - hosts: localhost
   tasks:
+    - set_fact:
+        thing: "{{ state == 'present' or (state == 'absent' and foo) }}"
     - debug:
-        msg: "{{ lookup('k8s', kind='BundleInstance', namespace='automation-broker', api_version='automationbroker.io/v1alpha1') | length }}"
+        msg: "it did the thing"
+      when: thing
+    - debug:
+        msg: "{{ foo | bool}}"
         #msg: "{{ lookup('k8s', cluster_info='api_groups') }}"
+    - debug:
+        msg: "{{ foo and True }}"
