@@ -1,12 +1,4 @@
 - hosts: localhost
-  tasks:
-    - set_fact:
-        thing: "{{ state == 'present' or (state == 'absent' and foo) }}"
-    - debug:
-        msg: "it did the thing"
-      when: thing
-    - debug:
-        msg: "{{ foo | bool}}"
-        #msg: "{{ lookup('k8s', cluster_info='api_groups') }}"
-    - debug:
-        msg: "{{ foo and True }}"
+  connection: local
+  roles:
+    - nskdebug
