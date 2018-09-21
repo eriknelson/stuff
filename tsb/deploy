@@ -1,3 +1,0 @@
-#!/bin/bash
-_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-ANSIBLE_ROLES_PATH=/git/openshift-ansible/roles
