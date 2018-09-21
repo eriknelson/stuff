@@ -1,0 +1,7 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+  - name: lookup thing
+    set_fact:
+      foo: "{{ lookup('k8s', api_version='v1', kind='ConfigMap', namespace='operator-lifecycle-manager') }}"
