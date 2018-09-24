@@ -1,10 +1,30 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: osb-operators
+  namespace: operator-lifecycle-manager
+data:
+  customResourceDefinitions: |-
+    - apiVersion: apiextensions.k8s.io/v1beta1
+      kind: CustomResourceDefinition
+      metadata:
+        name: templateservicebrokers.osb.openshift.io
+      spec:
+        group: osb.openshift.io
+        names:
+          kind: TemplateServiceBroker
+          listKind: TemplateServiceBrokerList
+          plural: templateservicebrokers
+          singular: templateservicebroker
+        scope: Namespaced
+        version: v1alpha1
+  clusterServiceVersions: |-
     - apiVersion: operators.coreos.com/v1alpha1
       kind: ClusterServiceVersion
       metadata:
         name: templateservicebrokeroperator.v0.1.0
         namespace: placeholder
-        annotations:
-          tectonic-visibility: ocs
       spec:
         displayName: Template Service Broker Operator
         description: Template Service Broker Operator
@@ -80,3 +100,8 @@
             kind: TemplateServiceBroker
             displayName: Template Service Broker
             description: An Open Service Broker supporting management of OpenShift templates.
+  packages: |-
+    - packageName: templateservicebroker
+      channels:
+      - name: alpha
+        currentCSV: templateservicebrokeroperator.v0.1.0
