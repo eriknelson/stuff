@@ -1,0 +1,162 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations:
+    audit2rbac.liggitt.net/version: v0.6.0
+  labels:
+    audit2rbac.liggitt.net/generated: "true"
+    audit2rbac.liggitt.net/user: system-serviceaccount-bar-default
+  name: audit2rbac:system:serviceaccount:bar:default
+  namespace: bar
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - broker-config
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resourceNames:
+  - bar
+  resources:
+  - namespaces
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - serviceaccounts
+  verbs:
+  - create
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resourceNames:
+  - broker
+  resources:
+  - services
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resourceNames:
+  - automation-broker
+  resources:
+  - deployments
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - automationbroker.io
+  resourceNames:
+  - automation-broker-operator
+  resources:
+  - automationbrokers
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - servicecatalog.k8s.io
+  resourceNames:
+  - automation-broker
+  resources:
+  - servicebrokers
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - servicecatalog.k8s.io
+  resources:
+  - servicebrokers
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    audit2rbac.liggitt.net/version: v0.6.0
+  labels:
+    audit2rbac.liggitt.net/generated: "true"
+    audit2rbac.liggitt.net/user: system-serviceaccount-bar-default
+  name: audit2rbac:system:serviceaccount:bar:default
+rules:
+- nonResourceURLs:
+  - /version/openshift
+  verbs:
+  - get
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - automationbroker.io
+  resources:
+  - automationbrokers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  - clusterroles
+  verbs:
+  - get
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    audit2rbac.liggitt.net/version: v0.6.0
+  labels:
+    audit2rbac.liggitt.net/generated: "true"
+    audit2rbac.liggitt.net/user: system-serviceaccount-bar-default
+  name: audit2rbac:system:serviceaccount:bar:default
+  namespace: bar
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: audit2rbac:system:serviceaccount:bar:default
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: bar
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    audit2rbac.liggitt.net/version: v0.6.0
+  labels:
+    audit2rbac.liggitt.net/generated: "true"
+    audit2rbac.liggitt.net/user: system-serviceaccount-bar-default
+  name: audit2rbac:system:serviceaccount:bar:default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: audit2rbac:system:serviceaccount:bar:default
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: bar
