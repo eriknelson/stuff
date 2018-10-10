@@ -8,3 +8,4 @@ spec:
   source: osb-operators
   sourceNamespace: openshift-operator-lifecycle-manager
   name: automationbroker
+  channel: alpha
