@@ -1,0 +1,11 @@
+---
+apiVersion: "operators.coreos.com/v1alpha1"
+kind: Subscription
+metadata:
+  name: template-service-broker
+  namespace: tsb
+spec:
+  source: osb-operators
+  sourceNamespace: openshift-operator-lifecycle-manager
+  name: templateservicebroker
+  channel: alpha
