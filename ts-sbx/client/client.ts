@@ -1,7 +1,7 @@
 import { IResource } from '../resources/common'
 import axios, { AxiosPromise, AxiosInstance } from 'axios';
 
-export class ClusterClient {
+export default class ClusterClient {
   private token: string;
   private apiRoot: string;
   private requester: AxiosInstance;
@@ -10,7 +10,7 @@ export class ClusterClient {
     this.apiRoot = apiRoot;
     this.token = token;
     this.requester = axios.create({
-      baseURL: apiRoot,
+      baseURL: this.apiRoot,
       headers: {
         'Authorization': `Bearer ${this.token}`
       }

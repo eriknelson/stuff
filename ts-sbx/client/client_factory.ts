@@ -14,6 +14,13 @@ export class ClientFactoryMissingUserError extends Error {
   }
 }
 
+export class ClientFactoryMissingApiRoot extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, ClientFactoryMissingUserError.prototype);
+  }
+}
+
 export class ClientFactory {
   private getState: () => any;
 
@@ -26,7 +33,8 @@ export class ClientFactory {
     if(!!state.auth.user) {
       throw new ClientFactoryMissingUserError();
     }
-    return this.genClient(state.auth.user.token);
+
+    return new ClusterClient(state.migMeta.clusterApi, state.auth.user.token);
   }
 
   public forCluster(clusterName: string) {
@@ -37,11 +45,21 @@ export class ClientFactory {
       throw new ClientFactoryUnknownClusterError();
     }
     const cluster = clusters[clusterName];
-    return this.genClient(cluster.token);
-  }
+    // TODO: Need to get some more information from the cluster registry about:
+    // 1) Exactly where should this baseURL be retrieved from the cluster registry object?
+    // Just guessing this path based on the published CRD...
+    // Any reason to prefer an endpoint, since it's a list?
+    // Will need an error if none of them exist?
+    // See: https://github.com/kubernetes/cluster-registry/blob/master/cluster-registry-crd.yaml
 
-  private genClient(token: string) ClusterClient {
-    const client = new ClusterClient(token);
-    return client;
+    // const apiRoot = cluster.spec.kubernetesApiEndpoints.serverEndpoints[0].serverAddress;
+
+    // TODO: Where in the state tree is the token available? It's not going to
+    // be on the cluster, so it's going to require an additional call to the secret endpoint
+    // to get the actual secret contents.
+
+    // const token = state.kube.core.secrets.relevant_cluster.token;
+    // return new ClusterClient(apiRoot, cluster.token);
+    throw new Error('forCluster NOT IMPLEMENTED');
   }
 }

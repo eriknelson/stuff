@@ -1,1 +1,1 @@
-export { default as MigResource } from './mig';
+export { MigResource } from './mig';
