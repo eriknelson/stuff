@@ -1,5 +1,9 @@
-.App {
+.top {
+  background-color: pink;
   text-align: center;
+}
+
+/* .App {
 }
 
 .App-logo {
@@ -30,4 +34,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
